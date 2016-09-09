@@ -1,0 +1,378 @@
+<html>
+<head>
+
+<!-- TODO: replace with actual styles -->
+<style type="text/css">
+
+h1 {
+  font-family: Tahoma;
+  font-size: 16pt;
+  font-weight: normal;
+  color: navy;
+}
+
+h2 {
+  font-family: Tahoma;
+  font-size: 14pt;
+  font-weight: normal;
+  color: navy;
+}
+
+h3 {
+  margin-left: 20px;
+  font-family: Tahoma;
+  font-size: 12pt;
+  font-weight: normal;
+  color: navy;
+}
+
+p {
+  font-family: Tahoma;
+  font-size: 11pt;
+  margin-left: 20px;
+}
+
+ul {
+  margin-left: 20px;
+}
+
+li {
+  font-family: Tahoma;
+  font-size: 11pt;
+}
+
+p.paper {
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+p.paper:hover {
+  text-decoration: underline;
+}
+
+div.abstract {
+  margin-left: 20px;
+}
+
+span.open {
+  margin-left: -20px;
+  display:inline-block;
+}
+
+span.close {
+  margin-left: -20px;
+  display:none;
+}
+
+a {
+  color: black;
+  text-decoration: underline;
+}
+
+pre {
+  border: solid 1px navy;
+  margin: 0px 40px;
+  padding: 10px;
+}
+
+
+</style>
+
+<script type="text/javascript">
+
+function toggle(blck) {
+  var el = document.getElementById(blck);
+  var closed = document.getElementById(blck + "-closed");
+  var open = document.getElementById(blck + "-open");
+  if (window.getComputedStyle(el, null).display == "none") {
+    el.style.display = "block";
+    closed.style.display = "none";
+    open.style.display = "inline-block";
+  } else {
+    el.style.display = "none";
+    closed.style.display = "inline-block";
+    open.style.display = "none";
+  }
+}
+
+function toggleAll() {
+  var papers = ["bitdata", "bytedata", "fundeps-design", "instances", "bobw"]
+  var len = papers.length;
+  for (i = 0; i < len; i++) {
+    toggle(papers[i]);
+  }
+}
+
+</script>
+
+<title>Habit: a new functional programming language</title>
+
+</head>
+
+<body onload='toggleAll();'>
+
+<h1>Habit: a new functional programming language</h1>
+
+<p>
+  Habit is a pure functional language that explores the intersection of low-level programming
+  problems and high-level programming paradigms.
+</p>
+
+<p>
+  We believe the value of such a language can be seen in recent verified software development
+  projects, such as the development of the seL4 microkernel.  While these are unquestionably heroic
+  accomplishments, the effort required makes such techniques inaccessible for the majority of
+  software projects.  For example, the functional correctness proofs for the seL4 kernel are an
+  order of magnitude longer than the combined specification and implementation of the kernel, and
+  construction of the proof required 20 person years.
+</p>
+
+
+<h2>Features of Habit</h2>
+
+<p>
+  Habit's syntax and type system are inspired by Haskell, while its semantics are inspired by ML.
+  Its distinctive character arises from three particular focuses.  First, Habit provides safe
+  manipulation of low-level data, by extending notions of algebraic datatypes to bit-level
+  specification of value and memory layouts.  Second, Habit includes powerful new mechanisms for
+  type-level programming, providing more flexible, expressive forms of type-directed generic
+  programming.  Third, Habit has experimental support for a novel form of substructural typing,
+  providing a foundation for capturing state, protocols, and other facets of program behavior in
+  types without losing the expressiveness of functional programming.
+</p>
+
+<h3>Safe manipulation of low-level data</h3>
+
+<p>
+  Algebraic data types provide a high-level view of data, guaranteeing safe and efficient
+  construction and deconstruction of data while abstracting from details of representation.  Bitdata
+  provides the same guarantees of safe construction and deconstruction for word-sized (or smaller)
+  values, while allowing exact specification of data layout, avoiding the need (and potential for
+  error) in manual bit masking and manipulation.  Habit also provides bytedata, which provides a
+  similar level of control of representation for larger, memory-based data structures.  The
+  following papers describe bitdata and bytedata, giving motivation, examples, and the
+  details of their typing and compilation.
+</p>
+
+<p onclick='toggle("bitdata")' class="paper">
+  <span id="bitdata-closed" class="close">&#9655;</span>
+  <span id="bitdata-open" class="open">&#9661;</span>
+  Iavor S. Diatchki, Mark P. Jones, and Rebekah Leslie.
+  "High-level Views on Low-level Representations".
+</p>
+<div class="abstract" id="bitdata">
+  <p>
+    This paper explains how the high-level treatment of datatypes in functional languages---using
+    features like constructor functions and pattern matching---can be made to coexist with
+    bitdata. We use this term to describe the bit-level representations of data that are required in
+    the construction of many different applications, including operating systems, device drivers,
+    and assemblers. We explain our approach as a combination of two language extensions, each of
+    which could potentially be adapted to any modern functional language. The first adds simple and
+    elegant constructs for manipulating raw bitfield values, while the second provides a view-like
+    mechanism for defining distinct new bitdata types with fine-control over the underlying
+    representation. Our design leverages polymorphic type inference, as well as techniques for
+    improvement of qualified types, to track both the type and the width of bitdata structures. We
+    have implemented our extensions in a small functional language interpreter, and used it to show
+    that our approach can handle a wide range of practical bitdata types.
+  </p>
+
+  <p>
+    Originally appeared in <i>Proceedings of the International Conference on Functional Programming
+   (ICFP 2005)</i>, Tallinn, Estonia, September 2005.  Available
+   in <a href="http://web.cecs.pdx.edu/~mpj/pubs/bitdata-icfp05.pdf">PDF</a>.
+  </p>
+</div>
+
+<p onclick='toggle("bytedata")' class="paper">
+  <span id="bytedata-closed" class="close">&#9655;</span>
+  <span id="bytedata-open" class="open">&#9661;</span>
+  Iavor S. Diatchki and Mark P. Jones.
+  "Strongly Typed Memory Areas: Programming Systems-Level Data Structures in a Functional Language".
+</p>
+<div class="abstract" id="bytedata">
+  <p>
+    Modern functional languages offer several attractive features to support development of reliable
+    and secure software. However, in our efforts to use Haskell for systems programming
+    tasks---including device driver and operating system construction---we have also encountered
+    some significant gaps in functionality. As a result, we have been forced, either to code some
+    non-trivial components in more traditional but unsafe languages like C or assembler, or else to
+    adopt aspects of the foreign function interface that compromise on strong typing and type
+    safety.
+  </p>
+
+  <p>
+    In this paper, we describe how we have filled one of these gaps by extending a Haskell-like
+    language with facilities for working directly with low-level, memory-based data
+    structures. Using this extension, we are able to program a wide range of examples, including
+    hardware interfaces, kernel data structures, and operating system APIs. Our design allows us to
+    address concerns about representation, alignment, and placement (in virtual or physical address
+    spaces) that are critical in some systems applications, but clearly beyond the scope of most
+    existing functional languages.
+  </p>
+
+  <p>
+    Our approach leverages type system features that are well-known and widely supported in existing
+    Haskell implementations, including kinds, multiple parameter type classes, functional
+    dependencies, and improvement. One interesting feature is the use of a syntactic abbreviation
+    that makes it easy to define and work with functions at the type level.
+  </p>
+  <p>
+    In <i>Proceedings of the ACM SIGPLAN 2006 Haskell Workshop</i>, Portland, Oregon, September
+    2006.  Available in <a href="http://web.cecs.pdx.edu/~mpj/pubs/bytedata.html">PDF</a>.
+  </p>
+</div>
+
+<h3>Expressive automatic type-level programming</h3>
+
+<p>
+  Type classes provide a powerful facility for characterizing types, and so can provide strong
+  typing for overloading (ad hoc polymorphism).  Habit builds on existing type class systems in
+  several ways.  First, we provide enhanced syntactic support for functional dependencies, which
+  allow us to characterize type-level computation.  Second, we introduce a notion of negation for
+  predicates, which both refine class specifications and can capture additional safety properties.
+  Finally, we introduce alternatives in instance declarations; in combination with negated
+  predicates (or functional dependencies) these provide a significant increase in expressiveness
+  compared to other type class systems or other mechanisms for automatic type-level programming.
+  The following paper give overview of programming with functional dependencies and of instance
+  chains, which combine negated predicates and alternatives in instances.
+</p>
+
+<p onclick='toggle("fundeps-design")' class="paper">
+  <span id="fundeps-design-closed" class="close">&#9655;</span>
+  <span id="fundeps-design-open" class="open">&#9661;</span>
+  Mark P. Jones and Iavor Diatchki.
+  "Language and Program Design for Functional Dependencies".
+</p>
+
+<div class="abstract" id="fundeps-design">
+  <p>
+    Eight years ago, functional dependencies, a concept from the theory of relational databases,
+    were proposed as a mechanism for avoiding common problems with multiple parameter type classes
+    in Haskell. In this context, functional dependencies give programmers a means to specify the
+    semantics of a type class more precisely, and to obtain more accurate inferred types as a
+    result. As time passed, however, several issues were uncovered---both in the design of a
+    language to support functional dependencies, and in the ways that programmers use them---that
+    led some to search for new, better alternatives.
+  </p>
+
+  <p>
+    This paper focuses on two related aspects of design for functional dependencies: (i) the design
+    of language/type system extensions that implement them; and (ii) the design of programs that use
+    them. Our goal is to clarify the issues of what functional dependencies are, how they should be
+    used, and how the problems encountered with initial proposals and implementations can be
+    addressed.
+  </p>
+
+  <p>
+    In <i>Proceedings of the ACM Haskell Symposium (Haskell '08)</i>, Victoria, British Columbia,
+    Canada, September 25, 2008.  Available
+    in <a href="http://web.cecs.pdx.edu/~mpj/pubs/fundeps-design.pdf">PDF</a>.
+  </p>
+</div>
+
+<p onclick='toggle("instances")' class="paper">
+  <span id="instances-closed" class="close">&#9655;</span>
+  <span id="instances-open" class="open">&#9661;</span>
+  J. Garrett Morris and Mark P. Jones.
+  "Instance Chains: Type Class Programming Without Overlapping Instances".
+</p>
+
+<div class="abstract" id="instances">
+  <p>
+    Type classes have found a wide variety of uses in Haskell programs, from simple overloading of
+    operators (such as equality or ordering) to complex invariants used to implement type-safe
+    heterogeneous lists or limited subtyping.  Unfortunately, many of the richer uses of type
+    classes require extensions to the class system that have been incompletely described in the
+    research literature and are not universally accepted within the Haskell community.
+  </p>
+
+  <p>
+    This paper describes a new type class system, implemented in a prototype tool
+    called <tt>ilab</tt>, that simplifies and enhances Haskell-style type-class programming.
+    In <tt>ilab</tt>, we replace overlapping instances with a new feature, <i>instance chains</i>,
+    allowing explicit alternation and failure in instance declarations.  We describe a technique for
+    ascribing semantics to type class systems, relating classes, instances, and class constraints
+    (such as kind signatures or functional dependencies) directly to a set-theoretic model of
+    relations on types.  Finally, we give a semantics for <tt>ilab</tt> and describe its
+    implementation.
+  </p>
+  <p>
+    In <i>Proceedings of the 15th ACM SIGPLAN International Conference on Functional Programming
+    (ICFP '10)</i>, Baltimore, Maryland, USA, September 27-29, 2010.  Available from
+    the <a href="http://dl.acm.org/citation.cfm?id=1863543.1863596">ACM DL</a> or
+    in <a href="http://jgbm.github.io/pubs/morris-icfp2010-instances.pdf">PDF</a>.
+  </p>
+</div>
+
+<h3>Sound foundations for linear and behavioral typing</h3>
+
+<p>
+  A more experimental feature of Habit is its support for linear (and substructural) typing.  Linear
+  type systems provide a general mechanism to stateful safety properties with types.  For example,
+  we can use linear type to assure that file handles are not used after they are closed, track
+  capabilities, or check communication protocols (expressed as session types).  While there has been
+  significant research on linear types and their usage, Habit provides a unique mechanism to
+  integrate linear and functional programming.  The following paper gives an overview of our linear
+  type system, and additional examples of the integration of linear and functional programming.
+</p>
+
+<p onclick='toggle("bobw")' class="paper">
+  <span id="bobw-closed" class="close">&#9655;</span>
+  <span id="bobw-open" class="open">&#9661;</span>
+  J. Garrett Morris.  "The Best of Both Worlds: Linear Functional Programming Without Compromise".
+</p>
+
+<div class="abstract" id="bobw">
+  <p>
+    We present a linear functional calculus with both the safety guarantees expressible with linear
+    types and the rich language of combinators and composition provided by functional programming.
+    Unlike previous combinations of linear typing and functional programming, we compromise neither
+    the linear side (for example, our linear values are first-class citizens of the language) nor
+    the functional side (for example, we do not require duplicate definitions of compositions for
+    linear and unrestricted functions).  To do so, we must generalize abstraction and application to
+    encompass both linear and unrestricted functions.  We capture the typing of the generalized
+    constructs with a novel use of qualified types.  Our system maintains the metatheoretic
+    properties of the theory of qualified types, including principal types and decidable type
+    inference.  Finally, we give a formal basis for our claims of expressiveness, by showing that
+    evaluation respects linearity, and that our language is a conservative extension of existing
+    functional calculi.
+  </p>
+
+  <p>To appear at ICFP 2016, Nara, Japan. Available
+  in <a href="pubs/morris-icfp2016-linearity.pdf">PDF</a></p>
+</div>
+
+<h2>Getting involved</h2>
+
+<p>
+  The Habit language and its prototype implementation are open-source projects developed by a small
+  international team of researchers.  We welcome feedback and contributions.
+</p>
+
+<p>
+  Complementing the formal descriptions above,
+  the <a href="http://github.com/habit-lang/language-report">Habit language report</a> gives a
+  holistic specification of the language syntax and standard environment, including the
+  predefined types and type classes.  It also includes an extended example of Habit programming,
+  showing how Habit's functional and low-level features come together in describing an efficient
+  implementation of a priority queue.
+</p>
+
+<p>
+  In addition to the formal description of the language and its features, we are also developing
+  tooling for the language.  We have a type-checker and interpreter,
+  called <a href="http://github.com/habit-lang/alb">Alb</a>, and a compiler targeting LLVM is
+  currently in development.
+</p>
+
+<h2>History</h2>
+
+<p>
+  The Habit language was originally developed as part of
+  the <a href="http://hasp.cs.pdx.edu">HASP</a> (High-Assurance Systems Programming) project at
+  <a href="http://pdx.edu/computer-science/">Portland State University</a>, and built on the
+  experience of <a href="http://web.cecs.pdx.edu/~apt/icfp05.pdf">House</a>, an operating system
+  written in Haskell.
+</p>
+
+</html>
