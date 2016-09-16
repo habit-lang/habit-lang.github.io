@@ -119,12 +119,21 @@ function toggleAll() {
 </p>
 
 <p>
-  We believe the value of such a language can be seen in recent verified software development
-  projects, such as the development of the seL4 microkernel.  While these are unquestionably heroic
-  accomplishments, the effort required makes such techniques inaccessible for the majority of
-  software projects.  For example, the functional correctness proofs for the seL4 kernel are an
-  order of magnitude longer than the combined specification and implementation of the kernel, and
-  construction of the proof required 20 person years.
+  We believe that the potential for such languages can be seen in recent verified software
+  development projects, such as the construction of the seL4 microkernel.  These projects are
+  landmark achievements for formal verification, but the effort required makes such
+  techniques inaccessible for the majority of software projects.  For example, the functional
+  correctness proofs for the seL4 kernel are an order of magnitude longer than the combined
+  specification and implementation of the kernel, and construction of the proof required an
+  estimated 20 person years.  Because the seL4 kernel is written in C, some portion of this
+  proof effort was needed to ensure that the implementation avoids common sources of bugs and
+  security vulnerabilities in C programs such as buffer overflows and null pointer
+  dereferences. Might it be possible instead to write software like this in a higher level
+  programming language where such guarantees are obtained <em>automatically</em> as a result,
+  for example, of type checking?  How much impact might this have on the overall cost of
+  verification?  And can we still obtain the levels of raw performance and predictability
+  that are typically required in systems programming when we are using higher level languages
+  like this?
 </p>
 
 
@@ -355,7 +364,9 @@ function toggleAll() {
   holistic specification of the language syntax and standard environment, including the
   predefined types and type classes.  It also includes an extended example of Habit programming,
   showing how Habit's functional and low-level features come together in describing an efficient
-  implementation of a priority queue.
+  implementation of a priority queue.  Note that there have been a few relatively small changes
+  to the language design since this document was last updated in 2010, but most parts of the
+  language are still as described in the report.
 </p>
 
 <p>
