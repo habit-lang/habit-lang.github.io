@@ -96,7 +96,7 @@ function toggle(blck) {
 }
 
 function toggleAll() {
-  var papers = ["bitdata", "bytedata", "fundeps-design", "instances", "bobw"]
+  var papers = ["mil", "bitdata", "bytedata", "fundeps-design", "instances", "bobw"]
   var len = papers.length;
   for (i = 0; i < len; i++) {
     toggle(papers[i]);
@@ -112,6 +112,9 @@ function toggleAll() {
 <body onload='toggleAll();'>
 
 <h1>Habit: a new functional programming language</h1>
+<p>
+  Last updated: Winter Equinox (December 21), 2018
+</p>
 
 <p>
   Habit is a pure functional language that explores the intersection of low-level programming
@@ -150,6 +153,107 @@ function toggleAll() {
   types without losing the expressiveness of functional programming.
 </p>
 
+<h2>Getting involved</h2>
+
+<p>
+  The Habit language and its prototype implementation are open-source projects developed by a small
+  team of researchers that is currently led by <a href="https://web.cecs.pdx.edu/~mpj/">Mark P. Jones</a>
+  at Portland State University and by <a href="https://ittc.ku.edu/~garrett/">Garrett Morris</a> at the
+  University of Kansas.  We welcome feedback and contributions.
+</p>
+
+<p>
+  <b>Language Definition</b>:
+  The <a href="https://web.cecs.pdx.edu/~mpj/pubs/language.pdf">Habit language report</a> (also
+  available <a href="https://github.com/habit-lang/language-report">in source form on GitHub</a>)
+  gives a holistic specification of the language syntax and standard environment, including the
+  predefined types and type classes.  It also includes an extended example of Habit programming,
+  showing how Habit's functional and low-level features come together in describing an efficient
+  implementation of a priority queue.  Note that there have been a few relatively small changes
+  to the language design since this document was last updated in 2010, but most parts of the
+  language are still as described in the report.
+</p>
+
+<p>
+  <b>Implementation</b>:
+  A prototype compiler for Habit is under active development.  Its implementation is currently
+  split between two components:
+</p>
+  <ul>
+  <li><p>A front-end called <a href="https://github.com/habit-lang/alb">Alb</a> that provides a
+       parser and a type checker for Habit source programs; and</p></li>
+  <li><p>A back-end called <a href="https://github.com/habit-lang/mil-tools">mil-tools</a> whose
+       output can be processed by the <a href="https://llvm.org">LLVM toolset</a> to produce
+       executable binaries.</p></li>
+  </ul>
+<p>
+  Source code for both components is available on GitHub via the links above.  We welcome
+  early adopters who are interested in experimenting with the Habit language, and who might
+  be willing to contribute to its development and documentation.
+</p>
+
+<p>
+  <b>Other Materials</b>:
+  The design of Habit was featured in a course on <a href="https://web.cecs.pdx.edu/~mpj/llp">Languages and Low-level Programming</a> that was taught at Portland State University in Spring 2015, Spring 2016, and Fall 2017.
+  The materials for this course describe some the tools, techniques, and challenges of developing
+  low-level systems software and provide motivation for discussions of language design, including
+  the design and some of the features of Habit.
+</p>
+
+<h2>History and Acknowledgements</h2>
+
+<p>
+  The Habit language was originally developed as part of
+  the <a href="https://hasp.cs.pdx.edu">HASP</a> (High-Assurance Systems Programming) project at
+  Portland State University, and built on the
+  experience of <a href="https://web.cecs.pdx.edu/~apt/icfp05.pdf">House</a>, an operating system
+  written in Haskell.
+</p>
+
+<p>
+  Work on the <a href="https://github.com/habit-lang/mil-tools">mil-tools</a> back-end during the
+  period 2014-2018 has been supported in part by funding from the National Science Foundation,
+  Award No. CNS-1422979.
+</p>
+
+<h2>Technical Papers</h2>
+
+<h3>Implementation</h3>
+
+<p>
+  The following papers describe some of the tools and methods that
+  are used in our implementation of the current Habit compiler pipeline,
+  comprising the Alb front-end and the mil-tools back-end.
+</p>
+
+<p onclick='toggle("mil")' class="paper">
+  <span id="mil-closed" class="close">&#9655;</span>
+  <span id="mil-open" class="open">&#9661;</span>
+  Mark P. Jones, Justin Bailey, and Theodore R. Cooper.
+  "MIL, a Monadic Intermediate Language for Implementing Functional Languages". (2018)
+</p>
+<div class="abstract" id="mil">
+  <p>
+    This paper describes MIL, a "monadic intermediate language"
+    that is designed for use in optimizing compilers for strict,
+    strongly typed functional languages.  By using a notation that
+    exposes the construction and use of closures and algebraic
+    datatype values, for example, the MIL optimizer is able to
+    detect and eliminate many unnecessary uses of these structures
+    prior to code generation.  One feature that distinguishes MIL
+    from other intermediate languages in this area is the use of a
+    typed, parameterized notion for basic blocks.  This both
+    enables new optimization techniques, such as the ability to
+    create specialized versions of basic blocks, and leads to a
+    new approach for implementing changes in data representation.
+  </p>
+  <p>
+    To appear in <i>Proceedings of the 30th symposium on Implementation and Application of Functional Languages
+    (IFL 2018)</i>, Lowell, MA, September 2018.  Draft version available
+    in <a href="http://web.cecs.pdx.edu/~mpj/pubs/mil.pdf">PDF</a>.
+  </p>
+</div>
+
 <h3>Safe manipulation of low-level data</h3>
 
 <p>
@@ -167,7 +271,7 @@ function toggleAll() {
   <span id="bitdata-closed" class="close">&#9655;</span>
   <span id="bitdata-open" class="open">&#9661;</span>
   Iavor S. Diatchki, Mark P. Jones, and Rebekah Leslie.
-  "High-level Views on Low-level Representations".
+  "High-level Views on Low-level Representations".  (2005)
 </p>
 <div class="abstract" id="bitdata">
   <p>
@@ -196,7 +300,7 @@ function toggleAll() {
   <span id="bytedata-closed" class="close">&#9655;</span>
   <span id="bytedata-open" class="open">&#9661;</span>
   Iavor S. Diatchki and Mark P. Jones.
-  "Strongly Typed Memory Areas: Programming Systems-Level Data Structures in a Functional Language".
+  "Strongly Typed Memory Areas: Programming Systems-Level Data Structures in a Functional Language".  (2006)
 </p>
 <div class="abstract" id="bytedata">
   <p>
@@ -250,7 +354,7 @@ function toggleAll() {
   <span id="fundeps-design-closed" class="close">&#9655;</span>
   <span id="fundeps-design-open" class="open">&#9661;</span>
   Mark P. Jones and Iavor Diatchki.
-  "Language and Program Design for Functional Dependencies".
+  "Language and Program Design for Functional Dependencies".  (2008)
 </p>
 
 <div class="abstract" id="fundeps-design">
@@ -283,7 +387,7 @@ function toggleAll() {
   <span id="instances-closed" class="close">&#9655;</span>
   <span id="instances-open" class="open">&#9661;</span>
   J. Garrett Morris and Mark P. Jones.
-  "Instance Chains: Type Class Programming Without Overlapping Instances".
+  "Instance Chains: Type Class Programming Without Overlapping Instances".  (2010)
 </p>
 
 <div class="abstract" id="instances">
@@ -328,7 +432,7 @@ function toggleAll() {
 <p onclick='toggle("bobw")' class="paper">
   <span id="bobw-closed" class="close">&#9655;</span>
   <span id="bobw-open" class="open">&#9661;</span>
-  J. Garrett Morris.  "The Best of Both Worlds: Linear Functional Programming Without Compromise".
+  J. Garrett Morris.  "The Best of Both Worlds: Linear Functional Programming Without Compromise".  (2016)
 </p>
 
 <div class="abstract" id="bobw">
@@ -347,43 +451,13 @@ function toggleAll() {
     functional calculi.
   </p>
 
-  <p>To appear at ICFP 2016, Nara, Japan. Available
-  in <a href="http://jgbm.github.io/pubs/morris-icfp2016-linearity.pdf">PDF</a></p>
-</div>
-
-<h2>Getting involved</h2>
-
-<p>
-  The Habit language and its prototype implementation are open-source projects developed by a small
-  international team of researchers.  We welcome feedback and contributions.
-</p>
-
-<p>
-  Complementing the formal descriptions above,
-  the <a href="http://github.com/habit-lang/language-report">Habit language report</a> gives a
-  holistic specification of the language syntax and standard environment, including the
-  predefined types and type classes.  It also includes an extended example of Habit programming,
-  showing how Habit's functional and low-level features come together in describing an efficient
-  implementation of a priority queue.  Note that there have been a few relatively small changes
-  to the language design since this document was last updated in 2010, but most parts of the
-  language are still as described in the report.
-</p>
-
-<p>
-  In addition to the formal description of the language and its features, we are also developing
-  tooling for the language.  We have a type-checker and interpreter,
-  called <a href="http://github.com/habit-lang/alb">Alb</a>, and a compiler targeting LLVM is
-  currently in development.
-</p>
-
-<h2>History</h2>
-
-<p>
-  The Habit language was originally developed as part of
-  the <a href="http://hasp.cs.pdx.edu">HASP</a> (High-Assurance Systems Programming) project at
-  <a href="http://pdx.edu/computer-science/">Portland State University</a>, and built on the
-  experience of <a href="http://web.cecs.pdx.edu/~apt/icfp05.pdf">House</a>, an operating system
-  written in Haskell.
-</p>
+   <p>
+   In <i>Proceedings of the 21st ACM SIGPLAN International Conference on Functional Programming
+   (ICFP 2016)</i>, Nara, Japan, 2016.
+     An extended edition is available in <a href="http://ittc.ku.edu/~garrett/pubs/morris-icfp2016-linearity-extended.pdf">PDF</a>.
+     Note that this version fixes several inadvertent omissions and typographical errors, and so
+     should be preferred to the conference version.  The conference version is available from
+     the <a href="http://dl.acm.org/citation.cfm?id=2951925">ACM DL</a>.
+ </div>
 
 </html>
