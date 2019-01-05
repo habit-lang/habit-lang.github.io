@@ -96,7 +96,7 @@ function toggle(blck) {
 }
 
 function toggleAll() {
-  var papers = ["mil", "bitdata", "bytedata", "fundeps-design", "instances", "bobw"]
+  var papers = ["mil", "mpeg", "bitdata", "bytedata", "fundeps-design", "instances", "bobw"]
   var len = papers.length;
   for (i = 0; i < len; i++) {
     toggle(papers[i]);
@@ -113,7 +113,8 @@ function toggleAll() {
 
 <h1>Habit: a new functional programming language</h1>
 <p>
-  Last updated: Winter Equinox (December 21), 2018
+  Last updated: January 4, 2019.  (Added a reference to an old Hasp technical
+  report decribing the front-end strategy for compiling Habit programs.)
 </p>
 
 <p>
@@ -251,6 +252,30 @@ function toggleAll() {
     To appear in <i>Proceedings of the 30th symposium on Implementation and Application of Functional Languages
     (IFL 2018)</i>, Lowell, MA, September 2018.  Draft version available
     in <a href="http://web.cecs.pdx.edu/~mpj/pubs/mil.pdf">PDF</a>.
+  </p>
+</div>
+
+<p onclick='toggle("mpeg")' class="paper">
+  <span id="mpeg-closed" class="close">&#9655;</span>
+  <span id="mpeg-open" class="open">&#9661;</span>
+  The High Assurance Systems Programming Project (Hasp).
+  "A Compilation Strategy for the Habit Programming Language".
+  Technical Report, November 2010.
+</p>
+<div class="abstract" id="mpeg">
+  <p>
+    This technical report was written to document the strategy for
+    compiling Habit programs to Lambda Case in the initial version
+    of the compiler front-end (Alb).  Although there have been many
+    changes to the implementation since this report was written, the
+    basic structure and role of the key intermediate language that
+    it describes&mdash;or really a family of languages, called "MPEG",
+    which is an acronym for "Matches, Patterns, Expressions, and
+    Guards"&mdash;is still broadly as described here.
+  </p>
+  <p>
+    An electronic version of this technical report is available
+    in <a href="http://web.cecs.pdx.edu/~mpj/pubs/compiler.pdf">PDF</a>.
   </p>
 </div>
 
